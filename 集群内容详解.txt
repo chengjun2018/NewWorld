@@ -1,0 +1,56 @@
+一 、 Rsync-backup服务器 -rsyncServer端-对应的一键脚本01_one_rsync_Server
+IP ：（私网）172.16.1.41 ->(公网)10.0.0.41
+1)配置文件内容：/etc/rsyncd.conf
+2)创建目录及赋权
+3)配置rsync免同步密码/etc/rsync.password
+4)编写备份指定目录及邮件通知shell
+5)nfs客户端部分#
+6)安装nfs以及rpc程序
+7)只启动rpc，并设置开机启动
+8）挂载nfs01的共享目录到本地某个目录下
+
+二、NFS-nfs01服务器-NFS-Server端-对应的一键脚本02_two_rsync_client
+IP：（私网）172.16.1.31 ->(公网)10.0.0.31
+1）模拟web服务器-rsyncClient，创建定时备份/var/www/html数据并推送到backup服务器的/backup目录
+2）NFS服务端-安装nfs以及rpc程序-添加共享目录到/etc/exports(注意：先启动rpc,再启动nfs)
+3）安装inotify配合rsync+crontd实现实时增量备份同步到backup服务器
+4）安装sersync配合inotify实现实时增量备份同步到backup服务器
+
+三、web服务器-nfs-client\rsync-Client-对应的一键脚本03_Inotify+SersynCrsync
+IP：（私网）172.16.1.8 ->(公网)10.0.0.8
+1)nfs-Client可以挂在NFS服务器上的共享目录
+2)安装nfs以及rpc程序-只启动rpc，并设置开机启动
+3)将本地/var/www/html目录或其他重要数据并推送到backup服务器的/backup目录
+4)安装inotify配合rsync+crontd实现实时增量备份同步到backup服务器
+5)安装sersync配合inotify实现实时增量备份同步到backup服务器
+6）安装LNMP-nginx;php;mysql
+7）搭建wodpress
+
+四、m01管理机-m01-对应一键脚本auto_deploy.sh
+IP：（私网）172.16.1.61 ->(公网)10.0.0.61
+1）安装expect-非交互方式
+2）生成秘钥
+3）分发秘钥到各个集群节点
+4）定点分发脚本及程序到各node
+5)远端批量管理集群节点、部署、管理
+
+五、db01-数据库-db01-数据库
+IP：（私网）172.16.1.51 ->(公网)10.0.0.51
+1)数据库-db01-数据库
+
+
+六、web服务器-web02
+IP：（私网）172.16.1.7->(公网)10.0.0.7
+1）LAMP
+2)wodpress
+
+
+七、负载均衡服务器lb01
+IP：（私网）172.16.1.5->(公网)10.0.0.5
+1、nginx
+2、keepalived
+
+八、负载均衡服务器lb02
+IP：（私网）172.16.1.6->(公网)10.0.0.6
+1、nginx
+2、keepalived
